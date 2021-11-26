@@ -11,7 +11,9 @@ function UsernameForm({onSubmitUsername}) {
 
   const handleSubmit = ev => {
     ev.preventDefault()
-    const username = inputRef.current.value
+    if (error) {
+      return
+    }
     onSubmitUsername(username)
   }
 
@@ -20,7 +22,7 @@ function UsernameForm({onSubmitUsername}) {
     const isValid = username === username.toLowerCase()
 
     if (!isValid) {
-      setError('Username must be lowercase')
+      setError('Username must be lower case')
     } else {
       setError(null)
     }
@@ -41,7 +43,9 @@ function UsernameForm({onSubmitUsername}) {
         />
         <p role="alert">{error}</p>
       </div>
-      <button type="submit">Submit</button>
+      <button type="submit" disabled={Boolean(error)}>
+        Submit
+      </button>
     </form>
   )
 }
